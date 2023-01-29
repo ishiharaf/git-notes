@@ -1,1 +1,1 @@
-# git-editor
+# git notes
