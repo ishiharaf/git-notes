@@ -1,0 +1,238 @@
+/* ===============================
+1. Fonts
+2. Variables
+3. General
+4. Icons
+5. Header
+6. Flex
+7. Grid
+8. Code
+9. Card
+10. Input
+================================== */
+
+/* Fonts */
+@font-face {
+	font-family: "Cambria";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: local("Cambria Regular"),
+		 url("../fonts/cambria.woff2") format("woff2"),
+		 url("../fonts/cambria.woff") format("woff"),
+		 url("../fonts/cambria.ttf") format("ttf");
+}
+
+@font-face {
+	font-family: "Cambria";
+	font-style: italic;
+	font-weight: 400;
+	font-display: swap;
+	src: local("Cambria Italic"),
+		 url("../fonts/cambria-i.woff2") format("woff2"),
+		 url("../fonts/cambria-i.woff") format("woff"),
+		 url("../fonts/cambria-i.ttf") format("ttf");
+}
+
+@font-face {
+	font-family: "IcoMoon";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("../fonts/icomoon.woff") format("woff"),
+		 url("../fonts/icomoon.ttf") format("ttf"),
+		 url("../fonts/icomoon.svg") format("svg");
+}
+
+/* Variables */
+:root {
+	--white: hsl(0, 0%, 100%);
+	--off-white: hsl(0, 0%, 98%);
+	--dark-gray: hsl(0, 0%, 30%);
+	--gray: hsl(0, 0%, 65%);
+	--light-gray: hsl(0, 0%, 85%);
+	--black: hsl(0, 0%, 15%);
+	--red: hsl(0, 100%, 65%);
+	--blue: hsl(225, 90%, 58%);
+
+	--font-color: var(--dark-gray);
+	--bg-color: var(--off-white);
+	--card-color: var(--white);
+	--input-border-color: var(--gray);
+	--input-focus-color: var(--dark-gray);
+	--input-invalid-color: var(--red);
+	--code-font-color: var(--black);
+	--code-bg-color: var(--light-gray);
+	--link-color: hsl(0, 0%, 21%);
+}
+
+/* General */
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-size: 1.6rem;
+	font-family: sans-serif;
+	line-height: 1.6;
+	color: var(--font-color);
+	background-color: var(--bg-color);
+	max-width: min(90%, 100.24rem);
+	margin-inline: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 2rem 0;
+}
+
+h1 {
+	font-size: 3rem;
+}
+
+p {
+	margin-bottom: 2rem;
+}
+
+a, a:visited {
+	color: var(--link-color);
+}
+
+/* Icons */
+.icon {
+	font-family: "IcoMoon";
+}
+
+/* Header */
+nav {
+	justify-content: space-between;
+	align-items: center;
+}
+
+nav h1 {
+	font-family: monospace;
+}
+
+button.icon {
+	font-size: 2rem;
+	color: var(--font-color);
+	background: none;
+	margin: 0 -0.5rem 0 0;
+	padding: 1.25rem 1.5rem;
+}
+
+/* Flex */
+.flex {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+/* Grid */
+.grid {
+	display: grid;
+	gap: 1.5rem;
+}
+
+#intro {
+	grid-template-columns: 1fr;
+}
+
+@media only screen and (min-width: 768px) {
+	#intro {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media only screen and (min-width: 1024px) {
+	#intro {
+		grid-template-columns: repeat(3, 1fr);
+	}
+	#intro section:first-of-type {
+		grid-column: span 2;
+	}
+}
+
+/* Code */
+code {
+	position: relative;
+	bottom: 0.1rem;
+	padding: 0.15rem 0.75rem 0.35rem 0.75rem;
+	border-radius: 1rem;
+	font-size: 1.3rem;
+	color: var(--code-font-color);
+	background-color: var(--code-bg-color);
+}
+
+/* Card */
+.card {
+	background: var(--card-color);
+	padding: 2rem;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+	border-radius: 1rem;
+}
+
+.card .flex {
+	justify-content: end;
+}
+
+.card .flex button {
+	margin-right: -1.25rem;
+}
+
+form.card, form {
+	padding-right: 4rem;
+}
+
+/* Input */
+input {
+	width: 100%;
+	margin: 1rem;
+	padding: 0.5rem 1rem;
+	outline: none;
+	border: none;
+	border-bottom: 1px solid;
+	color: var(--font-color);
+	border-color: var(--input-border-color);
+	background: transparent;
+}
+
+input[type="password"] {
+	margin-bottom: 1.5rem;
+}
+
+input[type="checkbox"] {
+	width: auto;
+	margin-right: 0.5rem;
+}
+
+/* input:valid {
+	border-color: var(--input-border-color);
+}
+
+input:required:invalid {
+	border-color: var(--input-invalid-color);
+} */
+
+input:is(:focus, :hover) {
+	border-color: var(--input-focus-color);
+}
+
+button {
+	cursor: pointer;
+	color: inherit;
+	background: none;
+	border: none;
+	margin: 1rem;
+	padding: 1rem 2rem;
+	color: var(--white);
+	background: var(--blue);
+	border-radius: 4rem;
+}
+
+textarea {
+	outline: none;
+	resize: none;
+	overflow: auto;
+	width: 97%;
+	height: 95%;
+}
