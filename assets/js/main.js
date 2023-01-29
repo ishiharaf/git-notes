@@ -12,12 +12,119 @@ const fetchData = async (url, token) => {
 	}
 }
 
-const gitHubLogin = async () => {
-	const user = document.querySelector("input[name='user']").value
-	const repository = document.querySelector("input[name='repository']").value
-	const token = document.querySelector("input[name='token']").value
+const changeInterface = (repo) => {
+	const app = document.querySelector("#app")
+	const intro = document.querySelector("#intro")
+	const header = document.querySelector("header h1")
 
-	console.log(await fetchData(`https://api.github.com/repos/${user}/${repository}/contents/`, token))
+	app.style.display = "block"
+	intro.style.display = "none"
+	header.innerText = repo
+}
+
+const cleanItems = () => {
+	const tree = document.querySelector(".tree ul")
+	const textarea = document.querySelector(".editor textarea")
+	tree.innerHTML = ""
+	textarea.value = ""
+}
+
+const storeCredentials = (user, repo, token, remember) => {
+	localStorage.setItem("user", user)
+	localStorage.setItem("repo", repo)
+	localStorage.setItem("pat", token)
+	localStorage.setItem("auto-login", remember)
+}
+
+const getCredentials = () => {
+	return {
+		user: localStorage.getItem("user"),
+		repo: localStorage.getItem("repo"),
+		token: localStorage.getItem("pat")
+	}
+}
+
+const addHomeListener = () => {
+	const home = document.querySelector("#home-dir")
+	const credentials = getCredentials()
+
+	home.addEventListener("click", async () => {
+		const data = await fetchData(
+			`https://api.github.com/repos/${credentials.user}/${credentials.repo}/contents/`, credentials.token
+		)
+		if (!data.error) {
+			cleanItems()
+			parseFolder(data)
+		}
+	})
+}
+
+const addTreeListener = () => {
+	const anchors = document.querySelectorAll(".tree a")
+	const credentials = getCredentials()
+
+	anchors.forEach(a => {
+		a.addEventListener("click", async () => {
+			const type = a.getAttribute("data-type")
+			const path = a.getAttribute("data-name")
+			const data = await fetchData(
+				`https://api.github.com/repos/${credentials.user}/${credentials.repo}/contents/${path}`, credentials.token
+			)
+			if (!data.error) {
+				cleanItems()
+				if (data.length > 0){
+					parseFolder(data)
+				} else {
+					parseFile(data)
+				}
+			}
+		})
+	})
+}
+
+const addToTree = (names, type) => {
+	const icon = type == "dir" ? "e92f" : "e926"
+	const tree = document.querySelector(".tree ul")
+	names.forEach(name => {
+		tree.innerHTML += `<li><span class="icon">&#x${icon};</span><a href="#" data-type="${type}" data-name="${name}">${name}</a></li>`
+	})
+}
+
+const parseFile = (file) => {
+	const editor = document.querySelector(".editor")
+	const textarea = editor.querySelector("textarea")
+	editor.style.display = "block"
+	textarea.value = atob(file.content)
+}
+
+const parseFolder = (folder) => {
+	const dirs = [], files = []
+	folder.forEach(object => {
+		if (object.type == "dir") dirs.push(object.name)
+		if (object.type == "file") files.push(object.name)
+	})
+
+	addToTree(dirs, "dir")
+	addToTree(files, "file")
+	addTreeListener()
+}
+
+const getUserRepo = async () => {
+	const user = document.querySelector("input[name='user']").value
+	const repo = document.querySelector("input[name='repo']").value
+	const token = document.querySelector("input[name='token']").value
+	const remember = document.querySelector("input[name='remember']").value
+	storeCredentials(user, repo, token, remember)
+
+	const data = await fetchData(
+		`https://api.github.com/repos/${user}/${repo}/contents/`, token
+		)
+	if (!data.error) {
+		changeInterface(repo)
+		addHomeListener()
+		cleanItems()
+		parseFolder(data)
+	}
 }
 
 const validateInput = (input) => {
@@ -74,7 +181,6 @@ window.addEventListener("DOMContentLoaded", () => {
 		if (text === icons.dark) updateTheme("light")
 	})
 
-
 	const login = document.querySelector("#intro form button")
 	login.addEventListener("click", (event) => {
 		event.preventDefault()
@@ -82,7 +188,7 @@ window.addEventListener("DOMContentLoaded", () => {
 		if (valueMissing) {
 			valueMissing.reportValidity()
 		} else {
-			// gitHubLogin()
+			getUserRepo()
 		}
 	})
 })

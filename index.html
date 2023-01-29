@@ -8,7 +8,7 @@
 	<script src="assets/js/main.js"></script>
 	<title>Git Notes</title>
 </head>
-<body>
+<body class="grid">
 	<header>
 		<nav class="flex">
 			<h1>git notes</h1>
@@ -25,9 +25,18 @@
 			<section>
 				<h2>Try it out</h2>
 				<form class="card">
-					<input type="text" name="user" placeholder="Username" required>
-					<input type="text" name="repository" placeholder="Repository name" required>
-					<input type="password" name="token" placeholder="Personal Access Token" required>
+					<div class="flex">
+						<label for="user" class="icon">&#xeab0;</label>
+						<input type="text" name="user" placeholder="Username" required>
+					</div>
+					<div class="flex">
+						<label for="repo" class="icon">&#xe91f;</label>
+						<input type="text" name="repo" placeholder="Repository name" required>
+					</div>
+					<div class="flex">
+						<label for="repo" class="icon">&#xe98d;</label>
+						<input type="password" name="token" placeholder="Personal Access Token" required>
+					</div>
 					<input type="checkbox" name="remember">
 					<label for="remember">Remember me</label>
 					<div class="flex">
@@ -36,9 +45,20 @@
 				</form>
 			</section>
 		</article>
-		<article class="app">
-			<!-- <section class="card">
-			</section> -->
+		<article id="app" class="card">
+			<nav>
+				<section class="crumbs">
+					<a href="#" class="icon" id="home-dir">&#xe900;</a>
+				</section>
+				<section class="buttons"></section>
+				<hr>
+			</nav>
+			<section class="tree">
+				<ul></ul>
+			</section>
+			<section class="editor">
+				<textarea></textarea>
+			</section>
 		</article>
 	</main>
 </body>
