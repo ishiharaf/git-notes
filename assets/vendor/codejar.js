@@ -11,10 +11,6 @@ export function CodeJar(editor, highlight, opt = {}) {
     let prev; // code content prior keydown event
     editor.setAttribute('contenteditable', 'plaintext-only');
     editor.setAttribute('spellcheck', options.spellcheck ? 'true' : 'false');
-    editor.style.outline = 'none';
-    editor.style.overflowWrap = 'break-word';
-    editor.style.overflowY = 'auto';
-    editor.style.whiteSpace = 'pre-wrap';
     let isLegacy = false; // true if plaintext-only is not supported
     highlight(editor);
     if (editor.contentEditable !== 'plaintext-only')
