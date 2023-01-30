@@ -1,3 +1,8 @@
+import { CodeJar } from "../vendor/codejar.js"
+// import { Prism } from "../vendor/prism/prism.js"
+
+Prism.plugins.autoloader.languages_path = "../vendor/prism/components/"
+
 const fetchData = async (url, token) => {
 	const headers = new Headers({
 		"Accept": "application/vnd.github+json",
@@ -24,9 +29,9 @@ const changeInterface = (repo) => {
 
 const cleanItems = () => {
 	const tree = document.querySelector(".tree ul")
-	const textarea = document.querySelector(".editor textarea")
+	const editor = document.querySelector(".editor")
 	tree.innerHTML = ""
-	textarea.value = ""
+	editor.textContent = ""
 }
 
 const storeCredentials = (user, repo, token, remember) => {
@@ -91,10 +96,11 @@ const addToTree = (names, type) => {
 }
 
 const parseFile = (file) => {
+	const filetype = file.name.split(".")[1] ?? ""
 	const editor = document.querySelector(".editor")
-	const textarea = editor.querySelector("textarea")
+	editor.textContent = atob(file.content)
+	let jar = new CodeJar(editor, Prism.highlightAll)
 	editor.style.display = "block"
-	textarea.value = atob(file.content)
 }
 
 const parseFolder = (folder) => {
