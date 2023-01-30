@@ -1,7 +1,5 @@
 import { CodeJar } from "../vendor/codejar.js"
-// import { Prism } from "../vendor/prism/prism.js"
-
-Prism.plugins.autoloader.languages_path = "../vendor/prism/components/"
+import hljs from "../vendor/highlight.min.js"
 
 const fetchData = async (url, token) => {
 	const headers = new Headers({
@@ -32,6 +30,7 @@ const cleanItems = () => {
 	const editor = document.querySelector(".editor")
 	tree.innerHTML = ""
 	editor.textContent = ""
+	editor.className = "editor"
 }
 
 const storeCredentials = (user, repo, token, remember) => {
@@ -96,11 +95,12 @@ const addToTree = (names, type) => {
 }
 
 const parseFile = (file) => {
-	const filetype = file.name.split(".")[1] ?? ""
 	const editor = document.querySelector(".editor")
-	editor.textContent = atob(file.content)
-	let jar = new CodeJar(editor, Prism.highlightAll)
+	const text = atob(file.content)
+	editor.textContent = text
+	let jar = CodeJar(editor, hljs.highlightElement)
 	editor.style.display = "block"
+	console.log(jar.toString())
 }
 
 const parseFolder = (folder) => {
@@ -159,6 +159,10 @@ const icons = {
 const updateTheme = (name) => {
 	const selector = document.querySelector("#theme-selector")
 	selector.textContent = name == "light" ? icons.bright : icons.dark
+
+	const link = document.head.querySelector("link[href*='vendor']")
+	console.log(link)
+	link.href = `assets/vendor/highlight/themes/atom-one-${name}.min.css`
 
 	const root = document.documentElement
 	root.style.setProperty("--font-color", name == "light" ? colors.darkGray : colors.offWhite)
