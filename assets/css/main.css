@@ -249,6 +249,7 @@ nav h1 {
 #home {
 	gap: 1.5rem;
 	grid-template-columns: 1fr;
+	margin-bottom: 2rem;
 }
 
 #home .error {
@@ -274,7 +275,8 @@ nav h1 {
 #app {
 	display: none;
 	margin-bottom: 2rem;
-	height: calc(100% - 2rem);
+	/* height: calc(100% - 2rem); */
+	height: calc(100vh - 10.8rem);
 }
 
 #app ul {
@@ -310,7 +312,7 @@ button.icon {
 .editor {
 	display: none;
 	height: calc(100% - 7rem);
-	padding: 1rem;
+	padding: 1rem 0;
 }
 
 textarea {
