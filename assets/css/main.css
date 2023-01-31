@@ -218,6 +218,11 @@ dialog button {
 	padding: 1rem 1.5rem;
 }
 
+dialog p {
+	color: var(--font-color);
+	text-align: center;
+}
+
 /* Code */
 p code {
 	position: relative;
