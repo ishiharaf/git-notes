@@ -28,6 +28,7 @@ const changeInterface = (repo) => {
 }
 
 const cleanItems = () => {
+	document.querySelector(".editor").style.display = "none"
 	document.querySelector(".tree ul").innerHTML = ""
 	document.querySelector("textarea").value = ""
 }
@@ -186,7 +187,7 @@ window.addEventListener("DOMContentLoaded", () => {
 		}
 	})
 
-	const login = document.querySelector("#home form button")
+	const login = document.querySelector("#login-button")
 	login.addEventListener("click", (event) => {
 		event.preventDefault()
 		if (validateForm()) {
@@ -201,7 +202,23 @@ window.addEventListener("DOMContentLoaded", () => {
 	})
 
 	const autologin = localStorage.getItem("autologin")
-	if (autologin) {
-		getUserRepo()
-	}
+	console.log(autologin)
+	if (autologin && autologin === "on") getUserRepo()
+
+	const logout = document.querySelector("#logout-button")
+	logout.addEventListener("click", () => {
+		document.querySelector("#logout-modal").showModal()
+		// if (autologin) {
+		// 	localStorage.setItem("autologin", "off")
+		// }
+	})
+
+	const logoutConfirmation = document.querySelector("#confirm-logout-button")
+	logoutConfirmation.addEventListener("click", () => {
+		// document.querySelector("#logout-modal").close()
+		if (autologin) {
+			localStorage.setItem("autologin", "off")
+		}
+		window.location.reload()
+	})
 })

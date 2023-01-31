@@ -108,55 +108,16 @@ a, a:visited {
 }
 
 hr {
-	margin-top: 2rem;
-	margin-bottom: 2rem;
+	margin: 1 0;
 	border: none;
 	border-top: 0.1rem solid var(--input-border-color);
 }
 
-/* Icons */
-.icon {
-	font-family: "IcoMoon";
-}
-
-.crumbs .icon,
-.tree .icon {
-	margin: 1rem;
-}
-
-/* Nav */
-nav {
-	justify-content: space-between;
-	align-items: center;
-}
-
-nav h1 {
-	font-family: monospace;
-}
-
-button.icon {
-	font-size: 2rem;
-	color: var(--font-color);
-	background: none;
-	margin: 0 -0.5rem 0 0;
-	padding: 1.25rem 1.5rem;
-}
-
-/* Home */
-#home .error {
-	text-align: center;
-}
-
-/* App */
-#app {
-	display: none;
-	margin-bottom: 2rem;
-	height: calc(100% - 2rem);
-}
-
-#app ul {
+menu {
+	margin: 0;
 	padding: 0;
-	list-style: none;
+	display: flex;
+	justify-content: end;
 }
 
 /* Flex */
@@ -166,6 +127,10 @@ button.icon {
 	align-items: center;
 }
 
+.justify-end {
+	justify-content: end;
+}
+
 /* Grid */
 .grid {
 	display: grid;
@@ -173,53 +138,6 @@ button.icon {
 
 body.grid {
 	grid-template-rows: auto 1fr;
-}
-
-#home {
-	gap: 1.5rem;
-	grid-template-columns: 1fr;
-}
-
-@media only screen and (min-width: 768px) {
-	#home {
-		grid-template-columns: repeat(2, 1fr);
-	}
-}
-
-@media only screen and (min-width: 1024px) {
-	#home {
-		grid-template-columns: repeat(3, 1fr);
-	}
-	#home section:first-of-type {
-		grid-column: span 2;
-	}
-}
-
-/* Code */
-p code {
-	position: relative;
-	bottom: 0.1rem;
-	padding: 0.15rem 0.75rem 0.35rem 0.75rem;
-	border-radius: 1rem;
-	font-size: 1.3rem;
-	color: var(--code-font-color);
-	background-color: var(--code-bg-color);
-}
-
-/* Card */
-.card {
-	background: var(--card-color);
-	padding: 2rem;
-	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-	border-radius: 1rem;
-}
-
-.card .flex {
-	justify-content: end;
-}
-
-.card label {
-	margin-inline: 1rem;
 }
 
 /* Input */
@@ -266,6 +184,126 @@ button {
 	color: var(--white);
 	background: var(--blue);
 	border-radius: 4rem;
+}
+
+button:disabled {
+	opacity: 0.5;
+}
+
+button:hover {
+	filter: brightness(90%);
+}
+
+a.icon:hover,
+button.icon:hover {
+	opacity: 0.8;
+}
+
+
+/* Dialog */
+dialog {
+	border: none;
+	padding: 3rem;
+}
+
+dialog::backdrop {
+	background: hsl(0, 0%, 15%);
+	opacity: 0.5;
+}
+
+dialog button {
+	margin: 0;
+	margin-left: 1rem;
+	padding: 1rem 1.5rem;
+}
+
+/* Code */
+p code {
+	position: relative;
+	bottom: 0.1rem;
+	padding: 0.15rem 0.75rem 0.35rem 0.75rem;
+	border-radius: 1rem;
+	font-size: 1.3rem;
+	color: var(--code-font-color);
+	background-color: var(--code-bg-color);
+}
+
+/* Header */
+header button.icon {
+	font-size: 2rem;
+	margin: 0 -0.5rem 0 0;
+	padding: 1.25rem 1.5rem;
+}
+
+/* Nav */
+nav {
+	justify-content: space-between;
+	align-items: center;
+}
+
+nav h1 {
+	font-family: monospace;
+}
+
+/* Home */
+#home {
+	gap: 1.5rem;
+	grid-template-columns: 1fr;
+}
+
+#home .error {
+	text-align: center;
+}
+
+@media only screen and (min-width: 768px) {
+	#home {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media only screen and (min-width: 1024px) {
+	#home {
+		grid-template-columns: repeat(3, 1fr);
+	}
+	#home section:first-of-type {
+		grid-column: span 2;
+	}
+}
+
+/* App */
+#app {
+	display: none;
+	margin-bottom: 2rem;
+	height: calc(100% - 2rem);
+}
+
+#app ul {
+	padding: 0;
+	list-style: none;
+}
+
+/* Icons */
+.icon {
+	font-family: "IcoMoon";
+	margin: 1rem;
+}
+
+button.icon {
+	padding: 0;
+	background: none;
+	color: var(--font-color);
+}
+
+/* Card */
+.card {
+	background: var(--card-color);
+	padding: 2rem;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+	border-radius: 1rem;
+}
+
+.card label {
+	margin-inline: 1rem;
 }
 
 /* Editor */
