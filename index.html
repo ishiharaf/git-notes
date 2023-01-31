@@ -3,10 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="assets/vendor/highlight/themes/atom-one-light.min.css">
 	<link rel="stylesheet" href="assets/css/reset.min.css">
 	<link rel="stylesheet" href="assets/css/main.css">
-	<script type="module" src="assets/js/main.js"></script>
+	<script src="assets/js/main.js"></script>
 	<title>Git Notes</title>
 </head>
 <body class="grid">
@@ -17,7 +16,7 @@
 		</nav>
 	</header>
 	<main>
-		<article id="intro" class="grid">
+		<article id="home" class="grid">
 			<section class="span-2">
 				<h2>What is it?</h2>
 				<p>An online text editor that can be accessed anywhere and syncs your data with <code>git</code>. Nothing is sent to any server and your data is kept private. It uses the GitHub API with a <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token" target="_blank">Personal Access Token</a> that you have control over and you can revoke anytime. It remembers you by accessing the browser's <code>localStorage</code>. The theme selector also works the same way.</p>
@@ -26,6 +25,7 @@
 			<section>
 				<h2>Try it out</h2>
 				<form class="card">
+					<p class="error"><small></small></p>
 					<div class="flex">
 						<label for="user" class="icon">&#xeab0;</label>
 						<input type="text" name="user" placeholder="Username" required>
@@ -57,8 +57,8 @@
 			<section class="tree">
 				<ul></ul>
 			</section>
-			<section class="test">
-				<div class="editor"></div>
+			<section class="editor">
+				<textarea></textarea>
 			</section>
 		</article>
 	</main>

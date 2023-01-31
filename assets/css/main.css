@@ -65,6 +65,7 @@ Input
 	--code-font-color: var(--black);
 	--code-bg-color: var(--light-gray);
 	--link-color: hsl(0, 0%, 21%);
+	--error-color: var(--red);
 }
 
 /* General */
@@ -96,6 +97,10 @@ p {
 
 p:last-of-type {
 	margin-bottom: 0;
+}
+
+.error {
+	color: var(--error-color);
 }
 
 a, a:visited {
@@ -137,6 +142,11 @@ button.icon {
 	padding: 1.25rem 1.5rem;
 }
 
+/* Home */
+#home .error {
+	text-align: center;
+}
+
 /* App */
 #app {
 	display: none;
@@ -165,22 +175,22 @@ body.grid {
 	grid-template-rows: auto 1fr;
 }
 
-#intro {
+#home {
 	gap: 1.5rem;
 	grid-template-columns: 1fr;
 }
 
 @media only screen and (min-width: 768px) {
-	#intro {
+	#home {
 		grid-template-columns: repeat(2, 1fr);
 	}
 }
 
 @media only screen and (min-width: 1024px) {
-	#intro {
+	#home {
 		grid-template-columns: repeat(3, 1fr);
 	}
-	#intro section:first-of-type {
+	#home section:first-of-type {
 		grid-column: span 2;
 	}
 }
@@ -261,28 +271,19 @@ button {
 /* Editor */
 .editor {
 	display: none;
-	outline: none;
-	overflow-wrap: break-word;
-	overflow-y: auto;
-	white-space: pre-wrap;
-	max-height: calc(100% - 7rem);
-	font-family: monospace;
-	line-height: 1.3;
-	padding: 1rem;
-	background: var(--card-color);
-	color: var(--font-color);
+	height: calc(100% - 7rem);
 }
 
-.hljs {
-	background: var(--card-color) !important;
-	color: var(--font-color) !important;
-}
-
-/* textarea {
+textarea {
 	outline: none;
 	resize: none;
 	overflow: auto;
 	border: none;
 	width: 100%;
 	height: 100%;
-} */
+	padding: 1rem;
+	font-family: monospace;
+	line-height: 1.3;
+	color: var(--font-color);
+	background: var(--card-color);
+}
