@@ -21,7 +21,6 @@ const showLoginError = (status, error) => {
 }
 
 const changeInterface = (repo) => {
-	document.querySelector("body").style.display = "block"
 	document.querySelector("#app").style.display = "block"
 	document.querySelector("#home").style.display = "none"
 	document.querySelector("#home .error small").innerText = ""
