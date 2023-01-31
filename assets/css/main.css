@@ -137,8 +137,7 @@ menu {
 }
 
 body.grid {
-	/* grid-template-rows: auto 1fr; */
-	grid-template-rows: auto calc(100vh - 8.8rem);
+	grid-template-rows: auto 1fr;
 }
 
 /* Input */
