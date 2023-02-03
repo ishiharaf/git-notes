@@ -1,15 +1,7 @@
-import * as fetch from "./modules/fetch.js"
 import * as listener from "./modules/listener.js"
-import * as storage from "./modules/storage.js"
+import { setCredentials } from "./modules/storage.js"
 import * as repo from "./modules/repo.js"
 import { app, home, icons } from "./modules/ui.js"
-
-const setCredentials = (user, repo, token, remember) => {
-	localStorage.setItem("user", user)
-	localStorage.setItem("repo", repo)
-	localStorage.setItem("pat", token)
-	localStorage.setItem("autologin", remember)
-}
 
 const saveFile = async () => {
 	const path = localStorage.getItem("path")
@@ -33,7 +25,7 @@ const loadRepo = async () => {
 		listener.home()
 		listener.tree()
 	} else {
-		home.showError(data.error)
+		home.showError(data)
 	}
 }
 
@@ -63,12 +55,7 @@ window.addEventListener("DOMContentLoaded", () => {
 	login.addEventListener("click", (event) => {
 		event.preventDefault()
 		if (validateForm()) {
-			const user = document.querySelector("input[name='user']").value,
-				  repo = document.querySelector("input[name='repo']").value,
-				  token = document.querySelector("input[name='token']").value,
-				  remember = document.querySelector("input[name='remember']").value
-
-			setCredentials(user, repo, token, remember)
+			setCredentials()
 			loadRepo()
 		}
 	})

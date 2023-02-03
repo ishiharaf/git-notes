@@ -18,11 +18,10 @@ const getContents = async (path) => {
 }
 
 const putContents = async (path, body) => {
-	console.log(commitBody())
 	const data = await fetch.put(
 		`https://api.github.com/repos/${credentials.user}/${credentials.repo}/contents/${path}`,
 		credentials.token,
-		commitBody()
+		commitBody
 	)
 	return data
 }

@@ -32,7 +32,7 @@ const changeTheme = (name) => {
 }
 
 const showLoginError = (error) => {
-	document.querySelector("#home .error small").innerText = `${error}`
+	document.querySelector("#home .error small").innerText = `${error.message}`
 }
 
 const changeUI = () => {
@@ -79,6 +79,10 @@ const loadFolder = (folder) => {
 	})
 	addToTree(dirs, "dir")
 	addToTree(files, "file")
+}
+
+const animateButton = (element) => {
+
 }
 
 const home = {

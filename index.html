@@ -27,15 +27,23 @@
 				<form class="card">
 					<p class="error"><small></small></p>
 					<div class="flex">
+						<label for="name" class="icon">&#xe971;</label>
+						<input type="text" name="name" placeholder="Name" required>
+					</div>
+					<div class="flex">
+						<label for="email" class="icon">&#xe945;</label>
+						<input type="text" name="email" placeholder="Email" required>
+					</div>
+					<div class="flex">
 						<label for="user" class="icon">&#xeab0;</label>
-						<input type="text" name="user" placeholder="Username" required>
+						<input type="text" name="user" placeholder="GitHub User" required>
 					</div>
 					<div class="flex">
 						<label for="repo" class="icon">&#xe91f;</label>
 						<input type="text" name="repo" placeholder="Repository name" required>
 					</div>
 					<div class="flex">
-						<label for="repo" class="icon">&#xe98d;</label>
+						<label for="token" class="icon">&#xe98d;</label>
 						<input type="password" name="token" placeholder="Personal Access Token" required>
 					</div>
 					<input type="checkbox" name="autologin">
@@ -55,7 +63,6 @@
 					<button id="save-button" class="icon" disabled>&#xe9c1;</button>
 					<button id="delete-button" class="icon" disabled>&#xe9ac;</button>
 					<button id="download-button" class="icon" disabled>&#xe9c5;</button>
-					<button id="config-button" class="icon">&#xe992;</button>
 					<button id="logout-button" class="icon">&#xe9b6;</button>
 				</menu>
 			</nav>
@@ -73,27 +80,6 @@
 			<p>Logout of this page?</p><br>
 			<menu>
 				<button id="confirm-logout-button">Yes</button>
-				<button value="cancel">Cancel</button>
-			</menu>
-		</form>
-	</dialog>
-	<dialog id="config-modal" class="card">
-		<form method="dialog">
-			<p class="error"><small></small></p>
-			<div class="flex">
-				<label for="user" class="icon">&#xeab0;</label>
-				<input type="text" name="user" placeholder="Name" required>
-			</div>
-			<div class="flex">
-				<label for="repo" class="icon">&#xe91f;</label>
-				<input type="text" name="repo" placeholder="Email" required>
-			</div>
-			<div class="flex">
-				<label for="repo" class="icon">&#xe98d;</label>
-				<input type="password" name="token" placeholder="Commit message" required>
-			</div>
-			<menu>
-				<button id="save-config-button">Save</button>
 				<button value="cancel">Cancel</button>
 			</menu>
 		</form>
