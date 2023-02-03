@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
 	<link rel="stylesheet" href="assets/css/reset.min.css">
 	<link rel="stylesheet" href="assets/css/main.css">
-	<script src="assets/js/main.js"></script>
+	<script src="assets/js/main.js" type="module"></script>
 	<title>Git Notes</title>
 </head>
 <body class="grid">
@@ -38,8 +38,8 @@
 						<label for="repo" class="icon">&#xe98d;</label>
 						<input type="password" name="token" placeholder="Personal Access Token" required>
 					</div>
-					<input type="checkbox" name="remember">
-					<label for="remember">Remember me</label>
+					<input type="checkbox" name="autologin">
+					<label for="autologin">Remember me</label>
 					<menu>
 						<button id="login-button">Start editing</button>
 					</menu>
@@ -71,8 +71,29 @@
 	<dialog id="logout-modal" class="card">
 		<form method="dialog">
 			<p>Logout of this page?</p><br>
-			<menu class="flex justify-end">
+			<menu>
 				<button id="confirm-logout-button">Yes</button>
+				<button value="cancel">Cancel</button>
+			</menu>
+		</form>
+	</dialog>
+	<dialog id="config-modal" class="card">
+		<form method="dialog">
+			<p class="error"><small></small></p>
+			<div class="flex">
+				<label for="user" class="icon">&#xeab0;</label>
+				<input type="text" name="user" placeholder="Name" required>
+			</div>
+			<div class="flex">
+				<label for="repo" class="icon">&#xe91f;</label>
+				<input type="text" name="repo" placeholder="Email" required>
+			</div>
+			<div class="flex">
+				<label for="repo" class="icon">&#xe98d;</label>
+				<input type="password" name="token" placeholder="Commit message" required>
+			</div>
+			<menu>
+				<button id="save-config-button">Save</button>
 				<button value="cancel">Cancel</button>
 			</menu>
 		</form>
