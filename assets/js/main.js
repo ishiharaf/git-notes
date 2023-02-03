@@ -1,9 +1,14 @@
-const fetchData = async (url, token) => {
+const fetchData = async (url, token, method = "GET", body = null) => {
 	const headers = new Headers({
 		"Accept": "application/vnd.github+json",
 		"Authorization": `Bearer ${token}`
 	})
-	const response = await fetch(url, {method: "GET", headers})
+	console.log(method, body)
+	const response = await fetch(url, {
+		method: method,
+		headers,
+		body: body
+	})
 	if (response.ok) {
 		return await response.json()
 	} else {
@@ -15,7 +20,6 @@ const fetchData = async (url, token) => {
 }
 
 const showLoginError = (status, error) => {
-
 	document.querySelector("#home .error small").innerText =
 		`${status} - ${error}`
 }
@@ -31,13 +35,9 @@ const cleanItems = () => {
 	document.querySelector(".editor").style.display = "none"
 	document.querySelector(".tree ul").innerHTML = ""
 	document.querySelector("textarea").value = ""
-}
-
-const storeCredentials = (user, repo, token, remember) => {
-	localStorage.setItem("user", user)
-	localStorage.setItem("repo", repo)
-	localStorage.setItem("pat", token)
-	localStorage.setItem("autologin", remember)
+	document.querySelector("#download-button").disabled = true
+	document.querySelector("#delete-button").disabled = true
+	document.querySelector("#save-button").disabled = true
 }
 
 const getCredentials = () => {
@@ -46,6 +46,13 @@ const getCredentials = () => {
 		repo: localStorage.getItem("repo"),
 		token: localStorage.getItem("pat")
 	}
+}
+
+const setCredentials = (user, repo, token, remember) => {
+	localStorage.setItem("user", user)
+	localStorage.setItem("repo", repo)
+	localStorage.setItem("pat", token)
+	localStorage.setItem("autologin", remember)
 }
 
 const addHomeListener = () => {
@@ -88,6 +95,7 @@ const addTreeListener = () => {
 				if (data.length > 0){
 					loadFolder(data)
 				} else {
+					localStorage.setItem("sha", data.sha)
 					loadFile(data)
 				}
 			}
@@ -111,6 +119,8 @@ const addToTree = (names, type) => {
 const loadFile = (file) => {
 	document.querySelector("textarea").value = atob(file.content)
 	document.querySelector(".editor").style.display = "block"
+	document.querySelector("#download-button").disabled = false
+	document.querySelector("#delete-button").disabled = false
 }
 
 const loadFolder = (folder) => {
@@ -122,6 +132,37 @@ const loadFolder = (folder) => {
 
 	addToTree(dirs, "dir"), addToTree(files, "file")
 	addTreeListener()
+}
+
+const getCommitMessage = () => {
+	const path = localStorage.getItem("path")
+	return localStorage.getItem("message") ?? `Update ${path}`
+}
+
+const getCommitBody = () => {
+	const content = btoa(document.querySelector("textarea").value)
+	const path = localStorage.getItem("path"),
+		  sha = localStorage.getItem("sha"),
+		  name = localStorage.getItem("name") ?? "Felipe Ishihara",
+		  email = localStorage.getItem("email") ?? "k.hishihara@gmail.com",
+		  message = getCommitMessage()
+
+	return JSON.stringify({
+		message, committer: { name, email }, content, sha
+	})
+}
+
+const saveFile = async () => {
+	const credentials = getCredentials(),
+		  path = localStorage.getItem("path")
+
+	const post = await fetchData(
+		`https://api.github.com/repos/${credentials.user}/${credentials.repo}/contents/${path}`,
+		credentials.token,
+		"PUT",
+		getCommitBody()
+	)
+	console.log(post)
 }
 
 const getUserRepo = async () => {
@@ -204,29 +245,34 @@ window.addEventListener("DOMContentLoaded", () => {
 				  token = document.querySelector("input[name='token']").value,
 				  remember = document.querySelector("input[name='remember']").value
 
-			storeCredentials(user, repo, token, remember)
+			setCredentials(user, repo, token, remember)
 			getUserRepo()
 		}
 	})
 
 	const autologin = localStorage.getItem("autologin")
-	console.log(autologin)
 	if (autologin && autologin === "on") getUserRepo()
 
 	const logout = document.querySelector("#logout-button")
 	logout.addEventListener("click", () => {
 		document.querySelector("#logout-modal").showModal()
-		// if (autologin) {
-		// 	localStorage.setItem("autologin", "off")
-		// }
 	})
 
 	const logoutConfirmation = document.querySelector("#confirm-logout-button")
 	logoutConfirmation.addEventListener("click", () => {
-		// document.querySelector("#logout-modal").close()
 		if (autologin) {
 			localStorage.setItem("autologin", "off")
 		}
 		window.location.reload()
+	})
+
+	const saveButton = document.querySelector("#save-button")
+	saveButton.addEventListener("click", () => {
+		saveFile()
+	})
+
+	const textarea = document.querySelector("textarea")
+	textarea.addEventListener("input", () => {
+		if (saveButton.disabled == true) saveButton.disabled = false
 	})
 })
