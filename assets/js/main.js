@@ -53,6 +53,7 @@ const addHomeListener = () => {
 		  credentials = getCredentials()
 
 	home.addEventListener("click", async () => {
+		localStorage.setItem("path", "/")
 		const data = await fetchData(
 			`https://api.github.com/repos/${credentials.user}/${credentials.repo}/contents/`,
 			credentials.token
@@ -70,12 +71,18 @@ const addTreeListener = () => {
 
 	anchors.forEach(a => {
 		a.addEventListener("click", async () => {
-			const type = a.getAttribute("data-type"),
-				  path = a.getAttribute("data-name"),
-				  data = await fetchData(
+			const targetPath = a.getAttribute("data-name"),
+				  currentPath = localStorage.getItem("path")
+			const path = currentPath == "/"
+				? targetPath
+				: `${currentPath}/${targetPath}`
+
+			localStorage.setItem("path", path)
+			const data = await fetchData(
 					`https://api.github.com/repos/${credentials.user}/${credentials.repo}/contents/${path}`,
 					credentials.token
 				  )
+				  console.log(data)
 			if (!data.error) {
 				cleanItems()
 				if (data.length > 0){
@@ -124,6 +131,7 @@ const getUserRepo = async () => {
 		credentials.token
 	)
 	if (!data.error) {
+		localStorage.setItem("path", "/")
 		changeInterface(credentials.repo)
 		addHomeListener()
 		cleanItems()
